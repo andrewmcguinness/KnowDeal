@@ -1,0 +1,22 @@
+{
+  "name": "KnowDeal",
+  "version": "1.0.0",
+  "description": "GoneHacking demo app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andrewmcguinness/KnowDeal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andrewmcguinness/KnowDeal/issues"
+  },
+  "homepage": "https://github.com/andrewmcguinness/KnowDeal",
+  "dependencies": {
+    "express": "^4.10.2"
+  }
+}
