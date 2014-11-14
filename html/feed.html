@@ -1,0 +1,101 @@
+<html>
+<head>
+<style>
+.item {
+  position: absolute;
+  top: 0;
+  left: 20;
+
+border: 1px solid #848484;
+-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+outline:0;
+height:40px;
+width: 250px;
+padding-left:10px;
+padding-right:10px;
+font-family:  Helvetica, arial,
+    freesans, clean, sans-serif, 'Segoe UI Emoji', 'Segoe UI Symbol';
+font-size: 14px;
+background-color: powderblue;
+color: black;
+}
+#messages {
+  height: 500;
+}
+#bottomnav img {
+  width: 75;
+  height: 75;
+  margin: -5 -5 -5 -5;
+}
+</style>
+<script>
+function run() {
+  updateFeed = function(xhr) {
+    if(math.Random()<0.1) {
+      newMessages.push('hello!');
+    }
+  }
+
+  poll = function() {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = updateFeed;
+    xhr.open('get', 'updates/');
+//    xhr.send();
+  };
+
+  showMessages = function() {
+    while(newMessages.length>0) {
+      var msg = newMessages.shift();
+      if(messageItems.length>=4) {
+        messageItems[0].node.remove();
+        messageItems.shift();
+      }
+      messageItems.forEach(function(item) {
+        item.targetY = item.targetY + 50;
+      });
+      var newNode = document.createElement('div');
+      newNode.setAttribute('class','item');
+      var newText = document.createTextNode(msg);
+      newNode.appendChild(newText);
+      newNode.style.position='absolute';
+      newNode.style.top='0';
+      var newItem = { node: newNode, y: 0, targetY: 50 };
+      messageItems.push(newItem);
+    }
+  };
+
+  animate = function() {
+    var box = document.getElementById('messages');
+    messageItems.forEach(function(item) {
+      if(item.y < item.targetY) {
+        item.y += 2;
+        item.node.style.top = item.y+'px';
+        if(item.y >= 50 && !item.node.parent) {
+          box.appendChild(item.node);
+        }
+      }
+    });
+  };
+
+  newMessages = [ 'this is a test message' ];
+  messageItems = [];
+  showMessages();
+
+  //setInterval(poll,2500);
+  setInterval(animate,100);
+}
+</script>
+</head>
+<body onload='run()'>
+<div id='messages'>
+</div>
+<div id='bottomnav'>
+<img id='info' src='../gfx/info_button.svg'></img>
+<img id='home' src='../gfx/home_button.svg'></img>
+<img id='money' src='../gfx/money_button.svg'></img>
+
+</div>
+</body>
+</html>
